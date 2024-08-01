@@ -37,6 +37,12 @@ public class StudentServiceJSON implements StudentService {
     }
 
     @Override
+    public Student ChangeName(String nameBefore, String nameAfter) {
+        return null;
+    }
+
+
+    @Override
     public List<Student> findAll() {
         try {
             ArrayList<Student> list = gson.fromJson(new FileReader(fileName), new TypeToken<>(){});

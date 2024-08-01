@@ -119,9 +119,11 @@ public class TeacherController {
     }
 
     @PostMapping("/addhomework")
-    public String addhomework(@RequestParam("task") String task, @RequestParam("description") String description,
+    public String addhomework(@RequestParam("article") String name_homework,@RequestParam("task") String task, @RequestParam("description") String description,
                               @RequestParam("deadline") LocalDateTime dateTime,
                               @RequestParam("student") String studentName, HttpServletRequest request) {
+
+        
 
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("userId");
@@ -129,6 +131,7 @@ public class TeacherController {
 
 
         Homework createHomework = new Homework();
+        createHomework.setNameHomework(name_homework);
         createHomework.setTask(task);
         createHomework.setDescription(description);
         createHomework.setDeadline(dateTime);
