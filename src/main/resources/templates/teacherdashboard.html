@@ -131,6 +131,10 @@
             <div class="modal-body">
                 <form action="/api/teachers/addhomework" method="post">
                     <div class="mb-3">
+                        <label for="article" class="form-label">Article</label>
+                        <input type="text" class="form-control" id="article" name="article" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="task" class="form-label">Thema</label>
                         <input type="text" class="form-control" id="task" name="task" required>
                     </div>
@@ -187,6 +191,7 @@
 
 <!--END OF DELETE HOMEWORK-->
 
+<!--LIST OF HOMEWORK-->
 <div class="container">
 
     <ul class="nav nav-tabs">
@@ -235,7 +240,7 @@
 
 
 
-
+<!--HOMEWORKS-->
 
     <div class="auth-div bg-white p-8 rounded">
         <div class="row">
@@ -250,8 +255,9 @@
                             <span class="badge text-bg-danger" th:if="${response.homeworkStatus.toString() == 'PENAL'}">PENAL</span>
                             <span class="badge text-bg-success" th:if="${response.homeworkStatus.toString() == 'CURRENT'}">CURRENT</span>
 
-                        <span class="due-date" th:text="'Upload Date: ' + ${response.getHomework().uploadTime}"></span>
+                        <span class="due-date" th:text="'Upload Date: ' + ${#temporals.format(response.getHomework().getUploadTime, 'dd/MM/yyyy HH:mm')}"></span>
                         <br>
+                        <h5 class="homework-text" th:text="'Article: ' + ${response.getHomework().nameHomework}"></h5>
                         <h6 class="homework-text" th:text="'Thema: ' + ${response.getHomework().task}"></h6>
                     </div>
                     <div class="card-body">
@@ -261,27 +267,13 @@
                         <span class="homework-text " th:text="'Details: ' + ${response.getHomework().description}"></span>
                         <br>
                         <hr>
-                        <p class="submission-deadline" th:text="'Submission Deadline: ' + ${response.getHomework().deadline}"></p>
+                        <p class="submission-deadline" th:text="'Submission Deadline: ' + ${#temporals.format(response.getHomework().getDeadline(), 'dd/MM/yyyy HH:mm')}"></p>
                         <form th:if="${response.getResponseText() != null}">
                             <p th:text="'Answer: ' + ${response.getResponseText()}"></p>
                         </form>
                         <form action="/api/teachers/upload" method="post" th:if="${response.getMark() == null && response.getHomeworkStatus().toString() != 'CURRENT'}">
                             <input type="hidden" name="homeworkId" th:value="${response.getId()}" />
-                            <select name="markInteger" class="form-select" aria-label="Default select example">
-                                <option selected>Mark: </option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-                                <option value="10">Ten</option>
-                                <option value="11">Eleven</option>
-                                <option value="12">Twelve</option>
-                            </select>
+                            <input type="number" name="markInteger" min="1" max="12" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Mark: " required>
                             <br>
                             <button type="submit" class="btn btn-success" >Upload</button>
                         </form>
@@ -317,7 +309,7 @@
         });
     </script>
 
-
+</div>
 
 
 

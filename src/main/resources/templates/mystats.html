@@ -157,8 +157,9 @@
                         <span class="badge text-bg-danger" th:if="${response.homeworkStatus.toString() == 'PENAL'}">PENAL</span>
                             <span class="badge text-bg-success" th:if="${response.homeworkStatus.toString() == 'CURRENT'}">CURRENT</span>
                         </th>
-<span class="due-date" th:text="'Upload Date: ' + ${response.getHomework().uploadTime}"></span>
+<span class="due-date" th:text="'Upload Date: ' + ${#temporals.format(response.getHomework().getUploadTime, 'dd/MM/yyyy HH:mm')}"></span>
 <br>
+<h5 class="homework-text" th:text="'Article: ' + ${response.getHomework().nameHomework}"></h5>
 <h6 class="homework-text" th:text="'Thema: ' + ${response.getHomework().task}"></h6>
 </div>
 <div class="card-body">
@@ -168,7 +169,7 @@
     <span class="homework-text " th:text="'Details: ' + ${response.getHomework().description}"></span>
     <br>
     <hr>
-    <p class="submission-deadline" th:text="'Submission Deadline: ' + ${response.getHomework().deadline}"></p>
+    <p class="submission-deadline" th:text="'Submission Deadline: ' + ${#temporals.format(response.getHomework().deadline, 'dd/MM/yyyy HH:mm')}"></p>
     <form action="/api/students/upload" method="post" th:if="${response.getResponseText() == null && response.getMark() == null}">
         <input type="hidden" name="homeworkId" th:value="${response.getHomework().id}" />
         <textarea name="homeworkText" class="expand-textarea" rows="5" cols="30" placeholder="Enter your homework here"></textarea>
