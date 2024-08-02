@@ -2,6 +2,7 @@
 MyStatsBeta is a web application designed for students and teachers to efficiently manage the learning process. The application is built with a Java Spring back-end and a Leaf library front-end using Bootstrap for styling. It offers a wide range of features that make learning more organized and convenient for all participants.
 
 Key Features:
+
 For Teachers:
 
 Create Homework Assignments: Teachers can create and format homework assignments with descriptions, deadlines, and priority levels.
